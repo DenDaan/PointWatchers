@@ -49,6 +49,7 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.osgi:aopalliance.osgi:1.0-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.eclipse.osgi:org.eclipse.osgi:3.2.2" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.osgi:log4j.osgi:1.2.15-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: joda-time:joda-time:2.0" level="project" />
   </component>
 </module>
 
