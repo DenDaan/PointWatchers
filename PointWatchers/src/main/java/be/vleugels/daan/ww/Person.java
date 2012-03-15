@@ -4,6 +4,11 @@ import org.joda.time.DateTime;
 import org.joda.time.Interval;
 import org.joda.time.Period;
 
+import javax.persistence.*;
+import java.io.Serializable;
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Daan
@@ -11,19 +16,32 @@ import org.joda.time.Period;
  * Time: 22:26
  * To change this template use File | Settings | File Templates.
  */
-public class Person {
+@Entity
+@NamedQueries(
+        @NamedQuery(name = "Person.findAll", query = "select p from Person p")
+)
+public class Person implements Serializable {
     
     private static int MATURE_AGE = 18;
-    
+
+    @Id
+    @GeneratedValue
+    private long id;
+
+    @Column(name="FIRST_NAME")
     private String firstName;
+    @Column(name="LAST_NAME")
     private String lastName;
-    private DateTime birthDay;
+    @Column(name="BIRTHDAY")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date birthDay;
+    @Embedded
     private Address address;
     
-    public Person(String firstName, String lastName, DateTime birthDay, Address address){
+    public Person(String firstName, String lastName, Date birthDay, Address address){
         this.firstName = firstName;
         this.lastName = lastName;
-        this.birthDay = birthDay;
+       // this.birthDay = birthDay;
         this.address = address;
     }
 
@@ -31,8 +49,11 @@ public class Person {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-    
-    public boolean isMature(){
+
+    protected Person() {
+    }
+
+/*    public boolean isMature(){
         if(birthDay!=null){
             DateTime now = new DateTime();
             Period difference = new Period(now, birthDay);
@@ -40,14 +61,14 @@ public class Person {
                 return true;
             }
         } return false;
-    }
+    }                     */
 
     @Override
     public String toString() {
         return "Person{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", birthDay=" + birthDay +
+               // ", birthDay=" + birthDay +
                 ", address=" + address +
                 '}';
     }

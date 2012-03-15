@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
 
   <!-- regular spring configuration file defining the beans for this
        bundle. We've kept the osgi definitions in a separate 
        configuration file so that this file can easily be used
        for integration testing outside of an OSGi environment -->
+    <context:component-scan base-package="be.vleugels.daan.ww"/>
 
-  <bean name="myBean" class="be.vleugels.daan.ww.impl.BeanImpl" />
+  <bean name="personDAO" class="be.vleugels.daan.ww.dao.PersonDAOImpl" />
 
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalEntityManagerFactoryBean">
+        <property name="persistenceUnitName" value="pointwatchers" />
+        <!--<property name="jpaDialect" ref="jpaDialect"/>       -->
+    </bean>
+
+    <bean id="transactionManager"
+          class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory"
+                  ref="entityManagerFactory" />
+    </bean>
+
+    <!--<bean id="jpaDialect"
+          class="org.springframework.orm.jpa.vendor.EclipseLinkJpaDialect " /> -->
+
+
+    <tx:annotation-driven />
 </beans>

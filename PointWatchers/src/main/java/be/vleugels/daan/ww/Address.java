@@ -1,5 +1,7 @@
 package be.vleugels.daan.ww;
 
+import javax.persistence.Embeddable;
+
 /**
  * Created by IntelliJ IDEA.
  * User: Daan
@@ -7,6 +9,7 @@ package be.vleugels.daan.ww;
  * Time: 22:29
  * To change this template use File | Settings | File Templates.
  */
+@Embeddable
 public class Address {
     private String street;
     private int number;
